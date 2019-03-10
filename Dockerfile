@@ -14,6 +14,6 @@ RUN \
     dpkg-reconfigure --frontend noninteractive tzdata && \
     cd /opt && \
     git clone --single-branch -b master https://github.com/RMerl/am-toolchains && \
-    ln -s $PWD/am-toolchains/brcm-arm-sdk/hndtools-arm-linux-2.6.36-uclibc-4.5.3 /opt/brcm-arm
+    ln -s $PWD/am-toolchains/brcm-arm-sdk/hndtools-arm-linux-2.6.36-uclibc-4.5.3 /opt/brcm-arm && \
     echo "PATH=$PATH:/opt/brcm-arm/bin" >> ~/.profile
     
