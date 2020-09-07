@@ -15,7 +15,7 @@ Maybe this will change later on, but for now I will stick to the ubuntu which wo
 Once the container runs, you can git clone the firmware repository and build it, following the instructions in README of the Asus merlin repository.
 
 ```bash
-docker run -it --rm gnuton/asuswrt-merlin-toolchains-docker /bin/bash
+docker run -it --rm -v "$PWD:/build" gnuton/asuswrt-merlin-toolchains-docker /bin/bash
 ```
 
 For more info please check the [Asus Merlin official repository](https://github.com/RMerl/am-toolchains)
