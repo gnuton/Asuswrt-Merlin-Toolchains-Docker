@@ -23,18 +23,20 @@ RUN \
     subversion tar texinfo zlib1g zlib1g-dev git gettext libexpat1-dev libssl-dev cvs gperf unzip \
     python libxml-parser-perl gcc-multilib gconf-editor libxml2-dev g++-multilib gitk libncurses5 mtd-utils \
     libncurses5-dev libvorbis-dev git autopoint autogen sed build-essential intltool libglib2.0-dev \
-    xutils-dev lib32z1-dev lib32stdc++6 xsltproc gtk-doc-tools automake-1.15 locales sudo
+    xutils-dev lib32z1-dev lib32stdc++6 xsltproc gtk-doc-tools automake-1.15 locales libelf1:i386 gosu && \
+    rm -rf /var/lib/apt/lists/*;
 
-RUN apt -y install libelf1:i386
+
+RUN ln -s bash /bin/sh.bash && \
+    mv /bin/sh.bash /bin/sh
+
+RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 
 RUN echo "Setting up toolchains" && \
-    cd $HOME && \
-    git clone https://github.com/RMerl/am-toolchains 
-
-RUN sudo ln -s bash /bin/sh.bash && \
-    sudo mv /bin/sh.bash /bin/sh
-
-RUN sudo ln -s ~/am-toolchains/brcm-arm-hnd /opt/toolchains && \ 
+    ln -s /home/docker/am-toolchains/brcm-arm-hnd /opt/toolchains && \
+    ln -s /home/docker/am-toolchains/brcm-arm-sdk/hndtools-arm-linux-2.6.36-uclibc-4.5.3 /opt/brcm-arm && \
+    gosu docker bash -c 'cd ~ && \
+    git clone https://github.com/RMerl/am-toolchains && \
     echo "export LD_LIBRARY_PATH=$LD_LIBRARY:/opt/toolchains/crosstools-arm-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/lib" >> ~/.profile && \
     echo "export TOOLCHAIN_BASE=/opt/toolchains" >> ~/.profile && \
     echo "PATH=\$PATH:/opt/toolchains/crosstools-arm-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/bin" >> ~/.profile && \
@@ -42,7 +44,6 @@ RUN sudo ln -s ~/am-toolchains/brcm-arm-hnd /opt/toolchains && \
     echo "export LD_LIBRARY_PATH=$LD_LIBRARY:/opt/toolchains/crosstools-arm-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/lib" >> ~/.profile && \
     echo "PATH=\$PATH:/opt/toolchains/crosstools-arm-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/bin" >> ~/.profile && \
     echo "PATH=\$PATH:/opt/toolchains/crosstools-aarch64-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/bin" >> ~/.profile && \
-    sudo ln -s ~/am-toolchains/brcm-arm-sdk/hndtools-arm-linux-2.6.36-uclibc-4.5.3 /opt/brcm-arm && \
-    #ln -s ~/am-toolchains/brcm-arm-sdk  ~/asuswrt-merlin.ng/release/src-rt-6.x.4708/toolchains && \
-    echo "PATH=\$PATH:/opt/brcm-arm/bin" >> ~/.profile && \
-    sudo cat  ~/.profile >> /etc/profile
+    echo "PATH=\$PATH:/opt/brcm-arm/bin" >> ~/.profile;'
+
+USER docker:docker
