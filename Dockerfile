@@ -23,7 +23,7 @@ RUN \
     subversion tar texinfo zlib1g zlib1g-dev git gettext libexpat1-dev libssl-dev cvs gperf unzip \
     python libxml-parser-perl gcc-multilib gconf-editor libxml2-dev g++-multilib gitk libncurses5 mtd-utils \
     libncurses5-dev libvorbis-dev git autopoint autogen sed build-essential intltool libglib2.0-dev \
-    xutils-dev lib32z1-dev lib32stdc++6 xsltproc gtk-doc-tools automake-1.15 locales libelf1:i386 gosu bc && \
+    xutils-dev lib32z1-dev lib32stdc++6 xsltproc gtk-doc-tools automake-1.15 locales libelf1:i386 gosu bc rsync && \
     rm -rf /var/lib/apt/lists/*;
 
 
