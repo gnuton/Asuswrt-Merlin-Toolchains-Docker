@@ -19,7 +19,13 @@ docker run -it --rm -v "$PWD:/build"  -u $(id -u ${USER}):$(id -g ${USER}) \
 docker$ source /etc/profile
 
 ```
+
 Now follow the instructions in the README file that you can find in the  Asus Merlin repository.
 
 For more info please check the [Asus Merlin official repository](https://github.com/RMerl/am-toolchains)
 
+# Building and publishing the image
+```bash
+docker build . -t asuswrt-merlin-toolchains-docker:latest-ubuntu-20_04^C
+docker push  gnuton/asuswrt-merlin-toolchains-docker:latest-ubuntu-20_04
+```
