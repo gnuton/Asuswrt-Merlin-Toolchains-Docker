@@ -14,7 +14,6 @@ ENV TERM xterm-256color
 
 
 WORKDIR /build
-
 RUN \
     dpkg --add-architecture i386 && \
     apt update && \
@@ -30,20 +29,22 @@ RUN \
 RUN ln -s bash /bin/sh.bash && \
     mv /bin/sh.bash /bin/sh
 
+RUN echo "root:docker" | chpasswd
 RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 
 RUN echo "Setting up toolchains" && \
-    ln -s /home/docker/am-toolchains/brcm-arm-hnd /opt/toolchains && \
+    echo "export LD_LIBRARY_PATH=$LD_LIBRARY:/opt/toolchains/crosstools-arm-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/lib" >> /etc/profile && \
+    echo "export TOOLCHAIN_BASE=/opt/toolchains" >> /etc/profile && \
+    echo "PATH=\$PATH:/opt/toolchains/crosstools-arm-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/bin" >> /etc/profile && \
+    echo "PATH=\$PATH:/opt/toolchains/crosstools-aarch64-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/bin" >> /etc/profile && \
+    echo "export LD_LIBRARY_PATH=$LD_LIBRARY:/opt/toolchains/crosstools-arm-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/lib" >> /etc/profile && \
+    echo "PATH=\$PATH:/opt/toolchains/crosstools-arm-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/bin" >> /etc/profile && \
+    echo "PATH=\$PATH:/opt/toolchains/crosstools-aarch64-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/bin" >> /etc/profile && \
+    echo "PATH=\$PATH:/opt/brcm-arm/bin" >> /etc/profile && \
+    gosu docker bash -c 'cd ~ && git clone https://github.com/RMerl/am-toolchains' && \
+    mkdir -p /projects/hnd/tools/linux/ && \
+    ln -s /home/docker/am-toolchains/brcm-arm-sdk/hndtools-arm-linux-2.6.36-uclibc-4.5.3 /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3 && \
     ln -s /home/docker/am-toolchains/brcm-arm-sdk/hndtools-arm-linux-2.6.36-uclibc-4.5.3 /opt/brcm-arm && \
-    gosu docker bash -c 'cd ~ && \
-    git clone https://github.com/RMerl/am-toolchains && \
-    echo "export LD_LIBRARY_PATH=$LD_LIBRARY:/opt/toolchains/crosstools-arm-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/lib" >> ~/.profile && \
-    echo "export TOOLCHAIN_BASE=/opt/toolchains" >> ~/.profile && \
-    echo "PATH=\$PATH:/opt/toolchains/crosstools-arm-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/bin" >> ~/.profile && \
-    echo "PATH=\$PATH:/opt/toolchains/crosstools-aarch64-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/bin" >> ~/.profile && \
-    echo "export LD_LIBRARY_PATH=$LD_LIBRARY:/opt/toolchains/crosstools-arm-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/lib" >> ~/.profile && \
-    echo "PATH=\$PATH:/opt/toolchains/crosstools-arm-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/bin" >> ~/.profile && \
-    echo "PATH=\$PATH:/opt/toolchains/crosstools-aarch64-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/bin" >> ~/.profile && \
-    echo "PATH=\$PATH:/opt/brcm-arm/bin" >> ~/.profile;'
+    ln -s /home/docker/am-toolchains/brcm-arm-hnd /opt/toolchains
 
 USER docker:docker
