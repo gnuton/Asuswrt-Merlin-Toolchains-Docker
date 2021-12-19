@@ -11,9 +11,13 @@ The docker images are automatically built and published every night, so they are
 The docker file contains ubuntu and toolchain needed to build HND and not HND firmware.
 
 ```bash
-git clone THE_ASUS_MERLIN_REPOSITORY
+git clone ASUS_MERLIN_REPO_OR_ASUS_GPL
 cd asuswrt-merlin.ng
-docker run -it --rm -v "$PWD:/build" gnuton/asuswrt-merlin-toolchains-docker:latest-ubuntu-20_04 /bin/bash
+docker pull gnuton/asuswrt-merlin-toolchains-docker:latest-ubuntu-20_04
+docker run -it --rm -v "$PWD:/build"  -u $(id -u ${USER}):$(id -g ${USER}) \
+       gnuton/asuswrt-merlin-toolchains-docker:latest-ubuntu-20_04 /bin/bash
+docker$ source /etc/profile
+
 ```
 Now follow the instructions in the README file that you can find in the  Asus Merlin repository.
 
