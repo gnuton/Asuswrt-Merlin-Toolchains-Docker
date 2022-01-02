@@ -17,6 +17,9 @@ docker pull gnuton/asuswrt-merlin-toolchains-docker:latest-ubuntu-20_04
 docker run -it --rm -v "$PWD:/build"  -u $(id -u ${USER}):$(id -g ${USER}) \
        gnuton/asuswrt-merlin-toolchains-docker:latest-ubuntu-20_04 /bin/bash
 docker$ source /etc/profile
+if the above doesn't work log out and launch again docker run
+but this time run
+docker$ source /home/docker/.profile
 
 ```
 
