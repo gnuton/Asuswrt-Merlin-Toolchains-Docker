@@ -13,9 +13,9 @@ The docker file contains ubuntu and toolchain needed to build HND and not HND fi
 ```bash
 git clone ASUS_MERLIN_REPO_OR_ASUS_GPL
 cd asuswrt-merlin.ng
-docker pull gnuton/asuswrt-merlin-toolchains-docker:latest-ubuntu-20_04
+docker pull gnuton/asuswrt-merlin-toolchains-docker:latest
 docker run -it --rm -v "$PWD:/build"  -u $(id -u ${USER}):$(id -g ${USER}) \
-       gnuton/asuswrt-merlin-toolchains-docker:latest-ubuntu-20_04 /bin/bash
+       gnuton/asuswrt-merlin-toolchains-docker:latest /bin/bash
 
 ```
 From inside the docker image you should set the environment variables by calling the right script in envs/ dir
