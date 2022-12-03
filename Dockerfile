@@ -14,37 +14,27 @@ ENV TERM xterm-256color
 
 
 WORKDIR /build
-RUN \
-    dpkg --add-architecture i386 && \
-    apt update && \
-    apt -y install curl vim sudo git libtool-bin cmake libproxy-dev uuid-dev liblzo2-dev autoconf automake bash bison \
-    bzip2 diffutils file flex m4 g++ gawk groff-base libncurses5-dev libtool libslang2 make patch perl pkg-config shtool \
-    subversion tar texinfo zlib1g zlib1g-dev git gettext libexpat1-dev libssl-dev cvs gperf unzip \
-    python libxml-parser-perl gcc-multilib gconf-editor libxml2-dev g++-multilib gitk libncurses5 mtd-utils \
-    libncurses5-dev libvorbis-dev git autopoint autogen sed build-essential intltool libglib2.0-dev \
-    xutils-dev lib32z1-dev lib32stdc++6 xsltproc gtk-doc-tools automake-1.15 locales libelf1:i386 gosu bc rsync && \
-    rm -rf /var/lib/apt/lists/*;
-
+RUN apt-get update
+RUN apt-get -y dist-upgrade
+RUN dpkg --add-architecture i386
+RUN apt-get update
+#RUN apt-get -y install "linux-headers-$(uname -r)"
+RUN apt-get -y install lib32ncurses-dev dos2unix libtool-bin cmake libproxy-dev uuid-dev liblzo2-dev autoconf automake bash bison bzip2 diffutils file flex m4 g++ gawk groff-base libncurses5-dev libtool libslang2 make patch perl pkg-config shtool subversion tar texinfo zlib1g zlib1g-dev git gettext libexpat1-dev libssl-dev cvs gperf unzip python2 libxml-parser-perl gcc-multilib libxml2-dev g++-multilib gitk libncurses5 mtd-utils libvorbis-dev autopoint autogen sed build-essential intltool libelf1 libglib2.0-dev xutils-dev lib32z1-dev lib32stdc++6 xsltproc gtk-doc-tools libelf-dev:i386 libelf1:i386 libltdl-dev openssh-server curl nano lzip patchelf automake
+RUN apt-get -y install gosu bc rsync sudo xxd
+RUN apt -y autoremove
+RUN rm -rf /var/lib/apt/lists/*
+#RUN usermod -aG sudo docker && \
 
 RUN ln -s bash /bin/sh.bash && \
     mv /bin/sh.bash /bin/sh
 
 RUN echo "root:docker" | chpasswd
-RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
+RUN useradd -m docker && \
+    echo "docker:docker" | chpasswd && adduser docker sudo && \
+    echo "docker ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/docker
 
 RUN echo "Setting up toolchains" && \
-    echo "export LD_LIBRARY_PATH=$LD_LIBRARY:/opt/toolchains/crosstools-arm-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/lib" >> /etc/profile && \
-    echo "export TOOLCHAIN_BASE=/opt/toolchains" >> /etc/profile && \
-    echo "PATH=\$PATH:/opt/toolchains/crosstools-arm-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/bin" >> /etc/profile && \
-    echo "PATH=\$PATH:/opt/toolchains/crosstools-aarch64-gcc-5.3-linux-4.1-glibc-2.22-binutils-2.25/usr/bin" >> /etc/profile && \
-    echo "export LD_LIBRARY_PATH=$LD_LIBRARY:/opt/toolchains/crosstools-arm-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/lib" >> /etc/profile && \
-    echo "PATH=\$PATH:/opt/toolchains/crosstools-arm-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/bin" >> /etc/profile && \
-    echo "PATH=\$PATH:/opt/toolchains/crosstools-aarch64-gcc-5.5-linux-4.1-glibc-2.26-binutils-2.28.1/usr/bin" >> /etc/profile && \
-    echo "PATH=\$PATH:/opt/brcm-arm/bin" >> /etc/profile && \
     gosu docker bash -c 'cd ~ && git clone https://github.com/RMerl/am-toolchains' && \
-    mkdir -p /projects/hnd/tools/linux/ && \
-    ln -s /home/docker/am-toolchains/brcm-arm-sdk/hndtools-arm-linux-2.6.36-uclibc-4.5.3 /projects/hnd/tools/linux/hndtools-arm-linux-2.6.36-uclibc-4.5.3 && \
-    ln -s /home/docker/am-toolchains/brcm-arm-sdk/hndtools-arm-linux-2.6.36-uclibc-4.5.3 /opt/brcm-arm && \
     ln -s /home/docker/am-toolchains/brcm-arm-hnd /opt/toolchains
 
 USER docker:docker
