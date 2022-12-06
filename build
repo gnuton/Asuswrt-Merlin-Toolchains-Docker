@@ -1,0 +1,2 @@
+#!/bin/bash
+docker build . -t asuswrt-merlin-toolchains-docker:local 
