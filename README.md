@@ -23,8 +23,13 @@ Now follow the instructions in the README file that you can find in the  Asus Me
 
 For more info please check the [Asus Merlin official repository](https://github.com/RMerl/am-toolchains)
 
+# Build and test locally
+```bash
+./build
+```
+
 # Building and publishing the image
 ```bash
-docker build . -t asuswrt-merlin-toolchains-docker:latest
-docker push  gnuton/asuswrt-merlin-toolchains-docker:latest
+./buildNPublish
 ```
+

@@ -3,7 +3,7 @@ LABEL maintainer="Antonio Aloisio <gnuton@gnuton.org>"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TOOLCHAIN_BASE /opt/toolchains
-ENV LANG C.UTF-8
+#ENV LANG C.UTF-8
 ENV TERM xterm-256color
 
 
@@ -46,7 +46,18 @@ RUN \
     # Sets up toolchains
     gosu docker bash -c 'cd ~ && git clone https://github.com/RMerl/am-toolchains'
 
-ADD envs /home/docker/envs
+
+COPY envs /home/docker/envs
+RUN chown docker /home/docker/envs/* && \
+    chmod 755    /home/docker/envs/*
+
+RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
+    >> /etc/bash.bashrc \
+    ; echo "This Docker image would allow you to build AsusWRT firmware." > /etc/motd \
+    ; echo "To initialize correctly the env, please run" >> /etc/motd \
+    ; echo " 'source /home/docker/envs/[bcm-hnd-802.11ax.sh, bcm-hnd.sh, bcm-sdk.sh]'" >> /etc/motd
 
 # Set docker as default
 USER docker:docker
+
+CMD ["bash"]

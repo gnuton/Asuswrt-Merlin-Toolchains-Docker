@@ -1,0 +1,3 @@
+#!/bin/bash
+docker build . -t asuswrt-merlin-toolchains-docker:latest
+docker push  gnuton/asuswrt-merlin-toolchains-docker:latest
