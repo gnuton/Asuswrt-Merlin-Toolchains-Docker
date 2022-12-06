@@ -14,7 +14,7 @@ RUN \
     apt-get -y dist-upgrade && \
     dpkg --add-architecture i386 && \
     apt-get update && \
-    apt-get -y \
+    apt-get -y --no-install-recommends \
       install lib32ncurses-dev dos2unix libtool-bin cmake libproxy-dev   \
       uuid-dev liblzo2-dev autoconf automake bash bison bzip2 diffutils  \
       file flex m4 g++ gawk groff-base libncurses5-dev libtool libslang2 \
@@ -22,7 +22,7 @@ RUN \
       zlib1g-dev git gettext libexpat1-dev libssl-dev cvs gperf unzip    \
       python2 libxml-parser-perl gcc-multilib libxml2-dev g++-multilib   \
       gitk libncurses5 mtd-utils libvorbis-dev autopoint autogen sed     \
-      build-essential intltool libelf1 libglib2.0-dev xutils-dev         \ 
+      build-essential intltool libglib2.0-dev xutils-dev                 \
       lib32z1-dev lib32stdc++6 xsltproc gtk-doc-tools libelf-dev:i386    \
       libelf1:i386 libltdl-dev openssh-server curl nano lzip patchelf    \
       automake gosu bc rsync sudo xxd python-is-python2 && \
