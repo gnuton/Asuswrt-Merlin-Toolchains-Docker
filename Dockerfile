@@ -30,6 +30,7 @@ RUN \
     # Clean up env
     apt -y autoremove && \
     apt -y autoclean && \
+    rm -Rf /var/cache/apt/archives/*
 
     # Set bash as default shell
     ln -s bash /bin/sh.bash && \
