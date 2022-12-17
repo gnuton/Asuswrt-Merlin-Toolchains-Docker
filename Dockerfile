@@ -3,7 +3,7 @@ LABEL maintainer="Antonio Aloisio <gnuton@gnuton.org>"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TOOLCHAIN_BASE /opt/toolchains
-#ENV LANG C.UTF-8
+ENV LANG C.UTF-8
 ENV TERM xterm-256color
 
 
