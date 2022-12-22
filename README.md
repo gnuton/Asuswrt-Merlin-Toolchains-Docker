@@ -16,7 +16,7 @@ The docker file contains ubuntu and toolchain needed to build HND and not HND fi
 git clone ASUS_MERLIN_REPO_OR_ASUS_GPL
 cd asuswrt-merlin.ng
 docker pull gnuton/asuswrt-merlin-toolchains-docker:latest
-docker run -it --rm -v "$PWD:/build"  -u $(id -u ${USER}):$(id -g ${USER}) \
+docker run -it --rm -v "$PWD:/build"  -u "docker:docker" \
        gnuton/asuswrt-merlin-toolchains-docker:latest /bin/bash
 
 ```
