@@ -21,8 +21,8 @@ RUN \
       make patch perl pkg-config shtool subversion tar texinfo zlib1g    \
       zlib1g-dev git gettext libexpat1-dev libssl-dev cvs gperf unzip    \
       python2 libxml-parser-perl gcc-multilib libxml2-dev g++-multilib   \
-      gitk libncurses5 mtd-utils libvorbis-dev autopoint autogen sed     \
-      build-essential intltool libglib2.0-dev xutils-dev                 \
+      gitk libncurses5 mtd-utils libvorbis-dev xutils-dev autogen sed    \
+      build-essential intltool libglib2.0-dev autopoint  autoconf-archive\
       lib32z1-dev lib32stdc++6 xsltproc gtk-doc-tools libelf-dev:i386    \
       libelf1:i386 libltdl-dev openssh-server curl nano lzip patchelf    \
       automake gosu bc rsync sudo xxd python-is-python2 && \
