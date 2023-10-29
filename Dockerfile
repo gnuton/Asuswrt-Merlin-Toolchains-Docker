@@ -25,7 +25,7 @@ RUN \
       build-essential intltool libglib2.0-dev autopoint  autoconf-archive\
       lib32z1-dev lib32stdc++6 xsltproc gtk-doc-tools libelf-dev:i386    \
       libelf1:i386 libltdl-dev openssh-server curl nano lzip patchelf    \
-      automake gosu bc rsync sudo xxd python-is-python2 && \
+      automake gosu bc rsync sudo xxd python-is-python2 execstack && \
 
     # Clean up env
     apt -y autoremove && \
