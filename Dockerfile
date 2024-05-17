@@ -46,10 +46,10 @@ RUN \
     # Adds docker user
     useradd -m docker && \
     echo "docker:docker" | chpasswd && adduser docker sudo && \
-    echo "docker ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/docker && \
+    echo "docker ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/docker 
 
     # Sets up toolchains
-    gosu docker bash -c 'cd ~ && git clone https://github.com/RMerl/am-toolchains'
+RUN gosu docker bash -c 'cd ~ && git clone https://github.com/RMerl/am-toolchains'
 
 
 COPY envs /home/docker/envs
