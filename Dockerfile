@@ -56,7 +56,7 @@ RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' \
     >> /etc/bash.bashrc \
     ; echo "This Docker image would allow you to build AsusWRT firmware." > /etc/motd \
     ; echo "To initialize correctly the env, please run" >> /etc/motd \
-    ; echo " 'source /home/docker/envs/[bcm-hnd-802.11ax.sh, bcm-hnd.sh, bcm-sdk.sh, bcm-hnd-ax-4.19.sh]'" >> /etc/motd
+    ; echo " 'source /home/docker/envs/[bcm-hnd-802.11ax.sh, bcm-hnd.sh, bcm-sdk.sh, bcm-hnd-ax-4.19.sh, bcm-hnd-ax-4.19be.sh, bcm-hnd-ax-4.19be_soft.sh]'" >> /etc/motd
 
 # Set docker as default
 USER docker:docker
