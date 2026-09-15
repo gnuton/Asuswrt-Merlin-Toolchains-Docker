@@ -1,10 +1,12 @@
+
+
 [![Docker Pulls](https://img.shields.io/docker/pulls/gnuton/asuswrt-merlin-toolchains-docker.svg)](https://hub.docker.com/r/gnuton/asuswrt-merlin-toolchains-docker)
 
 Main branch build: [![CircleCI](https://circleci.com/gh/gnuton/Asuswrt-Merlin-Toolchains-Docker/tree/master.svg?style=svg)](https://circleci.com/gh/gnuton/Asuswrt-Merlin-Toolchains-Docker/tree/master)
 
 # Asuswrt-Merlin-Toolchains-Docker
 Docker images based on Ubuntu 16.04 and 20.04 containing Asuswrt Merlin BCM-SDK Toolchains.
-You may wanna use this to build Asus Merling by yourself.
+You may wanna use this to build Asus Merlin by yourself.
 
 ## Usage
 The docker file contains ubuntu and toolchain needed to build HND and not HND firmware.
@@ -31,4 +33,3 @@ For more info please check the [Asus Merlin official repository](https://github.
 ```bash
 ./buildNPublish
 ```
-
